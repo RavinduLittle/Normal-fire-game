@@ -48,7 +48,7 @@ class Fireball {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 10;
+        this.width = 20;
         this.height = 20;
         this.speed = 7;
     }
@@ -58,8 +58,8 @@ class Fireball {
     }
 
     draw() {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.font = '20px Arial';
+        ctx.fillText('🔥', this.x, this.y);
     }
 }
 
@@ -107,11 +107,13 @@ function update(deltaTime) {
                 fireballs.splice(fireballIndex, 1);
                 targets.splice(targetIndex, 1);
                 score += 10;
+                document.getElementById('score').textContent = score;
                 if (targets.length === 0) {
                     level++;
                     if (level > 5) {
                         level = 1; // Reset to level 1 after level 5
                     }
+                    document.getElementById('level').textContent = level;
                     createTargets();
                 }
             }
@@ -124,11 +126,6 @@ function draw() {
     player.draw();
     fireballs.forEach(fireball => fireball.draw());
     targets.forEach(target => target.draw());
-
-    ctx.fillStyle = 'black';
-    ctx.font = '24px Arial';
-    ctx.fillText('Score: ' + score, 10, 30);
-    ctx.fillText('Level: ' + level, 10, 60);
 }
 
 function gameLoop(timestamp) {
